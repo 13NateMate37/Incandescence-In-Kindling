@@ -1,6 +1,6 @@
-# 'TGA Precursor'
+# Incandescence In Kindling
 
-The currently named TGA Precursor is a passion project for bring my own ideas to life while practicing coding and development.
+This is a passion project for bring my own ideas to life while practicing coding and development.
 
 
 ## What is?
