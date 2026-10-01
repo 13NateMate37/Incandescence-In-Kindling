@@ -13,3 +13,13 @@ Development is expected to slightly wonky to start and start streamlining as I s
 
 This is semi-guided through the use of AI as a learning tool along side documentation and my previous Python basics training. 
 
+
+## Development Roadmap
+
+Just trying to lay the foundations at the momement.
+
+Currently working on simple character creation. 
+
+On the note of character creation, the direction it is being fleshed out in will mirror Pathfinder first edition. 
+
+This will be the system used to play the material when oui play physically.
