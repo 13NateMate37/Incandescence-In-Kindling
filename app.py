@@ -14,4 +14,18 @@ background = st.selectbox(
     ["Acolyte", "Foreigner", "Noble", "Outlander", "Sage", "Warrior"]
 )
 
+# Creating a character with the user input
+if st.button("Create Character"):    
+    character = Character(
+        name=name,
+        background=background
+        )
+
+    # Fancier output for the user
+    st.success("Character successfully created!")
+
+    # Displaying the character's details
+    # Want to neaten that output at some point
+    st.write(character)
+
 
