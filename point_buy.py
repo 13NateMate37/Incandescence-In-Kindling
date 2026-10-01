@@ -15,6 +15,7 @@ point_buy_costs = {
     18: 17
 }
 
+point_buy_budget = [20, 25, 30]
 
 # Looks up the point buy cost for a given ability score total
 def get_point_buy_cost(ability_score):
@@ -74,4 +75,12 @@ def legal_stat_checker(ability_score):
 # print(legal_stat_checker(15)) 
 # print(legal_stat_checker(19))  
 # print(legal_stat_checker(20))
+
+def validate_PB_stat_array(ability_scores, budget):
+    """
+    Validates the stat array for the Point Buy budget.
+    """
+    total_cost = calculate_total_point_buy_cost(ability_scores)
+    return total_cost <= budget
+
 
