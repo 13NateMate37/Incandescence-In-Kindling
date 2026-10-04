@@ -22,7 +22,7 @@ def roll_4d6_drop_lowest():
 
 
 # Creates an array of 6 stats
-def array_4d6d1_roller():
+def array_roller_4d6d1():
     """
     Rolls 4d6 and drops the lowest die six times.
     Returns a list of the six results.
