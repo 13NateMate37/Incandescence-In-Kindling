@@ -1,5 +1,17 @@
 """
-This file contains the imports and functions for Stat Array Generation
+This file contains the imports and functions for Stat Array Generation.
+
+
+Contents: 
+
+1)    SAG-4d6d1 - Function for returning an array of 6 stats via rolling 4d6d1 
+2)    SAG-Std   - Function for returning an array of 6 stats via Standard Array, 15,14,13,12,10,8
+3)    SAG-PB - Function for returning a base array of 6 8's for Point Buy spending
+3a1)  Point Buy cost logic as a dictionary
+3a2)  Logic for Point Buy. Sets the budget of spendable points. To be linked to difficulty.
+3a3)  Logic for assigning a stat to an ability score.
+3b)   Function for user to select a Point Buy budget   
+4)    Function for user to select a Stat Generation Method.
 """
 
 from dice import roll_4d6_drop_lowest
@@ -24,6 +36,8 @@ def array_roller_4d6d1():
     return sorted(results, reverse=True)
 
 
+
+
 # 2 SAG-Std
 # Returns standard array values
 def array_roller_standard():
@@ -32,7 +46,15 @@ def array_roller_standard():
     return standard_array
 
 
+
 # 3 SAG-PB
+# Returns the base Point Buy Array of 6 8's
+def array_roller_point_buy():
+    # Declaring array values
+    point_buy_array = [8, 8, 8, 8, 8, 8]
+    return point_buy_array
+
+
 
 # 3a_1
 # Point Buy costs in Dictionary form
@@ -51,6 +73,8 @@ point_buy_costs = {
     18: 17
 }
 
+
+
 # 3a_2
 # Campaign budgets
 campaign_budget = {
@@ -59,6 +83,7 @@ campaign_budget = {
             "High Fantasy": 24,
             "Epic Fantasy": 30
 }
+
 
 
 # 3a_3
@@ -71,6 +96,8 @@ ability_scores = (
     "Wisdom",
     "Charisma",
 )
+
+
 
 # 3b
 # Select campaign budget 
@@ -113,83 +140,39 @@ def select_budget():
 
         print("Please enter a number from 1 to 4.")
 
-#
 
-# Point Buy method to generate ability scores based on user input
-def spend_points(budget):
+# 4 SAG_MethodPicker
+# Let's the user choose their array method
+def choose_array_method():
     """
-    Prompts the user to enter ability scores until the total cost matches the budget.
-    
-    Args:
-        budget (int): The campaign budget in points.
-        
-    Returns:
-        dict: A dictionary of selected ability scores.
+    User select's their desired method for Stat Array Generation
     """
-    point_buy_costs = {
-        7: -4,
-        8: -2,
-        9: -1,
-        10: 0,
-        11: 1,
-        12: 2,
-        13: 3,
-        14: 5,
-        15: 7,
-        16: 10,
-        17: 13,
-        18: 17
+
+    # Mapping the choices 
+    choices = {
+        1: "Standard Array",
+        2: "4d6d1",
+        3: "Point Buy"
     }
-    
-    ability_scores = [
-        "Strength",
-        "Dexterity",
-        "Constitution",
-        "Intelligence",
-        "Wisdom",
-        "Charisma"
-    ]
-    
-    scores = {}
-    total_cost = 0
-    
-    for ability in ability_scores:
-        while True:
-            try:
-                score = int(input(f"Enter {ability}'s score (7-18): "))
-                if not (7 <= score <= 18):
-                    raise ValueError("Score must be between 7 and 18.")
-                
-                points_needed = budget - total_cost + point_buy_costs[score]
-                
-                if points_needed >= 0:
-                    scores[ability] = score
-                    total_cost += point_buy_costs[score]
-                    break
-                else:
-                    print("That score would make it impossible to spend the budget exactly. Choose another score.")
-            except ValueError as e:
-                print(e)
-    
-    return scores
 
-# Function to generate ability scores using the selected method
-def array_roller_point_buy():
-    """
-    Generates ability scores based on user selection.
-    
-    Returns:
-        dict: A dictionary of selected ability scores.
-    """
-    budget = select_budget()
-    selected_method = input("Select a method (4d6d1, Std, PB): ")
-    
-    if selected_method == "4d6d1":
-        return array_roller_4d6d1()
-    elif selected_method == "Std":
-        return array_roller_standard()
-    elif selected_method == "PB":
-        return spend_points(budget)
-    else:
-        print("Invalid method selected. Please try again.")
-        return None
+    # Printed message 
+    prompt = (
+        "Please select an Array Method"
+        "\n 1) Standard Array\n 2) 4d6d1"
+        "\n 3) Point Buy\n"
+    )
+
+    # Loops if 1-3 isn't entered
+    # Loops if non numerical
+    while True:
+        try:
+            selected_method = int(input(prompt))
+        except ValueError:
+            print("Please enter a number from 1 to 3.")
+            continue
+
+        # Loops is a number not 1-3 is chosen
+        if selected_method in choices:
+            return choices[selected_method]
+
+        print("Please enter a number from 1 to 3.")
