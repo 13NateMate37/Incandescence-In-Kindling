@@ -9,7 +9,7 @@ Working in Python, I will engineer game logic for a Table Top Role Playing Game.
 
 I will be using Streamlit to create a 'front-end' for the experience and will be using Ollama to run a local model AI as an interactive 'Game Master'.
 
-Development is expected to slightly wonky to start and start streamlining as I start picking habbits and noticing patterns. 
+Development is expected to slightly wonky to start with. streamlining as I start picking habbits and noticing patterns. 
 
 This is semi-guided through the use of AI as a learning tool along side documentation and my previous Python basics training. 
 

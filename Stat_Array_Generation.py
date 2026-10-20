@@ -26,15 +26,13 @@ def array_roller_4d6d1():
     """
     # Store result into variable
     results = []
-
     # Roll 6 times to make an array of 6
     for _ in range(6):
-        result = roll_4d6_drop_lowest()
-        results.append(result)
-
+        rolls = roll_4d6_drop_lowest()
+        # Add to results
+        results.append(rolls)
     # Return the array sorted
     return sorted(results, reverse=True)
-
 
 
 
@@ -58,7 +56,7 @@ def array_roller_point_buy():
 
 # 3a_1
 # Point Buy costs in Dictionary form
-point_buy_costs = {
+Point_Buy_Costs = {
     7: -4,
     8: -2,
     9: -1,
@@ -76,26 +74,26 @@ point_buy_costs = {
 
 
 # 3a_2
-# Campaign budgets
-campaign_budget = {
+# Campaign Budget Dictionary
+Campaign_Budget = {
             "Low Fantasy": 10,
             "Standard Fantasy": 15,
-            "High Fantasy": 24,
+            "High Fantasy": 25,
             "Epic Fantasy": 30
 }
 
 
 
 # 3a_3
-# Ability score
-ability_scores = (
-    "Strength",
-    "Dexterity",
-    "Constitution",
-    "Intelligence",
-    "Wisdom",
-    "Charisma",
-)
+# Ability Score, Blank Dictionary
+Ability_Scores = {
+    "Strength": None,
+    "Dexterity": None,
+    "Constitution": None,
+    "Intelligence": None,
+    "Wisdom": None,
+    "Charisma": None
+}
 
 
 
@@ -145,7 +143,8 @@ def select_budget():
 # Let's the user choose their array method
 def choose_array_method():
     """
-    User select's their desired method for Stat Array Generation
+    User select's their desired method for Stat Array Generation. 
+    Will call the corresponding SAG function
     """
 
     # Mapping the choices 
@@ -176,3 +175,50 @@ def choose_array_method():
             return choices[selected_method]
 
         print("Please enter a number from 1 to 3.")
+
+
+
+def assign_ability_scores(stat_array: list, Ability_Scores: dict):
+    """
+    This function takes a Stat Array (as a list) and te blank Ability_Scores
+    dictionary as input, allowing the user to manual assign values from their
+    Stat Arrays to the desired Ability Score. Resulting in a new dictionary.
+    """
+
+    # Making a copy of the Ability_Scores dictionary
+    assigned_scores = Ability_Scores.copy()
+    # Same for the remaining scores
+    remaining_scores = stat_array.copy()
+
+    # For each Ability Sore in the dictionary, top down
+    for Ability in assign_ability_scores:
+        # Loop setup to move through all 6 scores
+        while True:
+            # Show what values are left to assign
+            print(f"Ability Scores left: {remaining_scores}")
+            # Capture user input for the current Ability Score
+            choose_score = input(f"Choose a value for {Ability}:\n")
+
+            # Establishing try/except block
+            try:
+                # Convert the captured str to an int 
+                chosen_score = int(choose_score)
+            # If can't due to not being a recognised whole number
+            except ValueError:
+                print("Choose a value from your Stat Array")
+                continue # Return to the loop start
+
+            # checking if the user made up a value
+            if chosen_score not in remaining_scores:
+                # print a reminder and return to the loop start
+                print("Choose a value from your Stat Array")
+                continue
+
+            # Assigning the Value to the Key
+            assigned_scores[Ability] = chosen_score
+            # Removing it from the selection
+            remaining_scores.remove(chosen_score)
+            # breaking the loop
+            break
+    return assigned_scores
+
