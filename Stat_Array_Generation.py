@@ -8,7 +8,8 @@ Dice.py
 
 Contents: 
 
-1) Import Block:    ImpBlk 
+1) Import Block: 
+            ImpBlk 
 2) Globals:  
             Gbl-1a - Ability score dictionairy for mapping values too
             Gbl-2a - Campaign budget dictionairy for pointbuy games
@@ -237,4 +238,3 @@ def assign_Ability_Scores(stat_array: list, Ability_Scores: dict):
 
 # ASA-1b
 def spend_Pointbuy_Points():
-    
