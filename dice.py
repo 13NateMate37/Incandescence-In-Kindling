@@ -7,7 +7,7 @@ import random
 
 
  #Core die rolling function
-def roll_dice(amount_of_dice:int, sides:int):
+def roll_Dice(amount_of_dice:int, sides:int):
     """
     Simulates rolling dice. Takes the amount of dice and type of dice as parameters.
     Can only roll one die division at a time, i.e. 4d6, 2d20, 1d12, etc.  
@@ -27,13 +27,13 @@ def roll_dice(amount_of_dice:int, sides:int):
 
 
 # Foundation funciton for array roller
-def roll_4d6_drop_lowest():
+def roll_4d6_Drop_Lowest():
     """
     Rolls 4d6 and drops the lowest die.
     Returns the sum of the remaining three dice.
     """
     # Main purpose, stored to variable
-    rolls = roll_dice(4, 6)
+    rolls = roll_Dice(4, 6)
     # Remove the lowest roll
     rolls.remove(min(rolls))  
     # Sum the remaining values

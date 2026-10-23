@@ -4,6 +4,12 @@ This file contains the imports and functions for Stat Array Generation.
 
 Contents: 
 
+Import Block)    ImpBlk 
+Globals)    Gbl-1a - Ability score dictionairy for mapping values too
+            Gbl-2a - Campaign budget dictionairy for pointbuy games
+            Gbl-2b - Pointbuy score cost values, in ScoreValue: AmountOFPoints,
+                    (With -x effectively giving more points)
+
 1)    SAG-4d6d1 - Function for returning an array of 6 stats via rolling 4d6d1 
 2)    SAG-Std   - Function for returning an array of 6 stats via Standard Array, 15,14,13,12,10,8
 3)    SAG-PB - Function for returning a base array of 6 8's for Point Buy spending
@@ -14,49 +20,32 @@ Contents:
 4)    Function for user to select a Stat Generation Method.
 """
 
-from Dice import roll_4d6_drop_lowest
+# ImpBlk
+from Dice import roll_4d6_Drop_Lowest
 
+# Gbl-1a
+# Ability Score, Blank Dictionary
+ABILITY_SCORES_BLANK_BASE = {
+    "Strength": None,
+    "Dexterity": None,
+    "Constitution": None,
+    "Intelligence": None,
+    "Wisdom": None,
+    "Charisma": None
+}
 
-# 1 SAG-4d6d1
-# Creates an array of 6 stats
-def array_roller_4d6d1():
-    """
-    Rolls 4d6 and drops the lowest die six times.
-    Returns a list of the six results.
-    """
-    # Store result into variable
-    results = []
-    # Roll 6 times to make an array of 6
-    for _ in range(6):
-        rolls = roll_4d6_drop_lowest()
-        # Add to results
-        results.append(rolls)
-    # Return the array sorted
-    return sorted(results, reverse=True)
+# Gbl-2a
+# Campaign Budget Dictionary
+CAMPAIGN_BUDGETS = {
+            "Low Fantasy": 10,
+            "Standard Fantasy": 15,
+            "High Fantasy": 25,
+            "Epic Fantasy": 30
+}
 
-
-
-# 2 SAG-Std
-# Returns standard array values
-def array_roller_standard():
-    # Declaring array values
-    standard_array = [15, 14, 13, 12, 10, 8]
-    return standard_array
-
-
-
-# 3 SAG-PB
-# Returns the base Point Buy Array of 6 8's
-def array_roller_point_buy():
-    # Declaring array values
-    point_buy_array = [8, 8, 8, 8, 8, 8]
-    return point_buy_array
-
-
-
-# 3a_1
+# Gbl-2b
 # Point Buy costs in Dictionary form
-Point_Buy_Costs = {
+POINTBUY_POINT_COSTS = {
     7: -4,
     8: -2,
     9: -1,
@@ -72,34 +61,50 @@ Point_Buy_Costs = {
 }
 
 
+# 1 SAG-4d6d1
+# Creates an array of 6 stats
+def array_Roller_4d6d1():
+    """
+    Rolls 4d6 and drops the lowest die six times.
+    Returns a list of the six results.
+    """
+    # Store result into variable
+    results = []
+    # Roll 6 times to make an array of 6
+    for _ in range(6):
+        rolls = roll_4d6_Drop_Lowest()
+        # Add to results
+        results.append(rolls)
+    # Return the array sorted
+    return sorted(results, reverse=True)
 
-# 3a_2
-# Campaign Budget Dictionary
-Campaign_Budget = {
-            "Low Fantasy": 10,
-            "Standard Fantasy": 15,
-            "High Fantasy": 25,
-            "Epic Fantasy": 30
-}
+
+
+# 2 SAG-Std
+# Returns standard array values
+def array_Roller_Standard():
+    # Declaring array values
+    standard_array = [15, 14, 13, 12, 10, 8]
+    return standard_array
 
 
 
-# 3a_3
-# Ability Score, Blank Dictionary
-Ability_Scores = {
-    "Strength": None,
-    "Dexterity": None,
-    "Constitution": None,
-    "Intelligence": None,
-    "Wisdom": None,
-    "Charisma": None
-}
+# 3 SAG-PB
+# Returns the base Point Buy Array of 6 8's
+def array_Roller_Pointbuy():
+    # Declaring array values
+    point_buy_array = [8, 8, 8, 8, 8, 8]
+    return point_buy_array
+
+
+
+
 
 
 
 # 3b
 # Select campaign budget 
-def select_budget():
+def select_Budget():
     """
     User select's their campaign budget. Larger budget's
     being harder difficulties.
@@ -141,7 +146,7 @@ def select_budget():
 
 # 4 SAG_MethodPicker
 # Let's the user choose their array method
-def choose_array_method():
+def choose_Array_Method():
     """
     User select's their desired method for Stat Array Generation. 
     Will call the corresponding SAG function
@@ -178,7 +183,7 @@ def choose_array_method():
 
 
 
-def assign_ability_scores(stat_array: list, Ability_Scores: dict):
+def assign_Ability_Scores(stat_array: list, Ability_Scores: dict):
     """
     This function takes a Stat Array (as a list) and te blank Ability_Scores
     dictionary as input, allowing the user to manual assign values from their
@@ -191,7 +196,7 @@ def assign_ability_scores(stat_array: list, Ability_Scores: dict):
     remaining_scores = stat_array.copy()
 
     # For each Ability Sore in the dictionary, top down
-    for Ability in assign_ability_scores:
+    for Ability in assigned_scores:
         # Loop setup to move through all 6 scores
         while True:
             # Show what values are left to assign
