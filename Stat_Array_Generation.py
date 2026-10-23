@@ -1,27 +1,41 @@
 """
-This file contains the imports and functions for Stat Array Generation.
+Stat_Array_Generation.py
 
+This file contains the functions for generating stat arrays and the accomanying logic.
+
+Takes imports from:
+Dice.py
 
 Contents: 
 
-Import Block)    ImpBlk 
-Globals)    Gbl-1a - Ability score dictionairy for mapping values too
+1) Import Block:    ImpBlk 
+2) Globals:  
+            Gbl-1a - Ability score dictionairy for mapping values too
             Gbl-2a - Campaign budget dictionairy for pointbuy games
             Gbl-2b - Pointbuy score cost values, in ScoreValue: AmountOFPoints,
-                    (With -x effectively giving more points)
-
-1)    SAG-4d6d1 - Function for returning an array of 6 stats via rolling 4d6d1 
-2)    SAG-Std   - Function for returning an array of 6 stats via Standard Array, 15,14,13,12,10,8
-3)    SAG-PB - Function for returning a base array of 6 8's for Point Buy spending
-3a1)  Point Buy cost logic as a dictionary
-3a2)  Logic for Point Buy. Sets the budget of spendable points. To be linked to difficulty.
-3a3)  Logic for assigning a stat to an ability score.
-3b)   Function for user to select a Point Buy budget   
-4)    Function for user to select a Stat Generation Method.
+                     (With -x effectively giving more points)
+3) Stat Array Generation:
+            SAG-1a: arry_Roller_4d6d1 - Returns an array using the 4d6d1 rolling method
+            SAG-1b: arry_Roller_Standard - Returns an array of the Standard method 
+            SAG-1c: arry_Roller_Pointbuy - Returns an array of 8's for later point spending
+4) User Choice Selection:
+            UCS-1a: choose_Array_Method - Allows user to choose SAG method
+            UCS-1b: choose_Campaign_Budget - Allows user to choose a Pointbuy total 
+5) Ability Score Assignment:
+                ASA-1a: assign_Ability_Scores - Allows user to pick which value they want to
+                         assign to each ability score
+                ASA-1b: spend_Pointbuy_Points - Allows user to modulate their ability score 
+                         values.
 """
+
+
+
 
 # ImpBlk
 from Dice import roll_4d6_Drop_Lowest
+
+
+
 
 # Gbl-1a
 # Ability Score, Blank Dictionary
@@ -61,8 +75,9 @@ POINTBUY_POINT_COSTS = {
 }
 
 
-# 1 SAG-4d6d1
-# Creates an array of 6 stats
+
+
+# SAG-1a
 def array_Roller_4d6d1():
     """
     Rolls 4d6 and drops the lowest die six times.
@@ -79,18 +94,14 @@ def array_Roller_4d6d1():
     return sorted(results, reverse=True)
 
 
-
-# 2 SAG-Std
-# Returns standard array values
+# SAG-1b
 def array_Roller_Standard():
     # Declaring array values
     standard_array = [15, 14, 13, 12, 10, 8]
     return standard_array
 
 
-
-# 3 SAG-PB
-# Returns the base Point Buy Array of 6 8's
+# SAG-1c
 def array_Roller_Pointbuy():
     # Declaring array values
     point_buy_array = [8, 8, 8, 8, 8, 8]
@@ -99,12 +110,45 @@ def array_Roller_Pointbuy():
 
 
 
+# UCS-1a 
+def choose_Array_Method():
+    """
+    User select's their desired method for Stat Array Generation. 
+    Will call the corresponding SAG function
+    """
+
+    # Mapping the choices 
+    choices = {
+        1: "Standard Array",
+        2: "4d6d1",
+        3: "Point Buy"
+    }
+
+    # Printed message 
+    prompt = (
+        "Please select an Array Method"
+        "\n 1) Standard Array\n 2) 4d6d1"
+        "\n 3) Point Buy\n"
+    )
+
+    # Loops if 1-3 isn't entered
+    # Loops if non numerical
+    while True:
+        try:
+            selected_method = int(input(prompt))
+        except ValueError:
+            print("Please enter a number from 1 to 3.")
+            continue
+
+        # Loops is a number not 1-3 is chosen
+        if selected_method in choices:
+            return choices[selected_method]
+
+        print("Please enter a number from 1 to 3.")
 
 
-
-# 3b
-# Select campaign budget 
-def select_Budget():
+# UCS-1b
+def choose_Campaign_Budget():
     """
     User select's their campaign budget. Larger budget's
     being harder difficulties.
@@ -144,45 +188,9 @@ def select_Budget():
         print("Please enter a number from 1 to 4.")
 
 
-# 4 SAG_MethodPicker
-# Let's the user choose their array method
-def choose_Array_Method():
-    """
-    User select's their desired method for Stat Array Generation. 
-    Will call the corresponding SAG function
-    """
-
-    # Mapping the choices 
-    choices = {
-        1: "Standard Array",
-        2: "4d6d1",
-        3: "Point Buy"
-    }
-
-    # Printed message 
-    prompt = (
-        "Please select an Array Method"
-        "\n 1) Standard Array\n 2) 4d6d1"
-        "\n 3) Point Buy\n"
-    )
-
-    # Loops if 1-3 isn't entered
-    # Loops if non numerical
-    while True:
-        try:
-            selected_method = int(input(prompt))
-        except ValueError:
-            print("Please enter a number from 1 to 3.")
-            continue
-
-        # Loops is a number not 1-3 is chosen
-        if selected_method in choices:
-            return choices[selected_method]
-
-        print("Please enter a number from 1 to 3.")
 
 
-
+# ASA-1a
 def assign_Ability_Scores(stat_array: list, Ability_Scores: dict):
     """
     This function takes a Stat Array (as a list) and te blank Ability_Scores
@@ -227,3 +235,6 @@ def assign_Ability_Scores(stat_array: list, Ability_Scores: dict):
             break
     return assigned_scores
 
+# ASA-1b
+def spend_Pointbuy_Points():
+    
