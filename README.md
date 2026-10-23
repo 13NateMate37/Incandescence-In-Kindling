@@ -16,10 +16,27 @@ This is semi-guided through the use of AI as a learning tool along side document
 
 ## Development Roadmap
 
-Just trying to lay the foundations at the momement.
+# Currently finished
 
-Currently working on simple character creation. 
+*Dice.py*
+- Basic die roll function 
+- A setup function 4d6d1 for stat array function
 
-On the note of character creation, the direction it is being fleshed out in will mirror Pathfinder first edition. 
+*Stat_Generation_Array*
+- Contains array_roller_XXXX funtions that return lists of 6 figures
+- Dictionaries for the stat generation process. 
+- Identical functions for array generation method and campaign budget if point buy 
+- Function for assigning scores from the array to the Ability
 
-This will be the system used to play the material when oui play physically.
+
+# Working towards
+
+- Need a funciton for spending Point Buy  points based upon the campaign budget.
+- Ability Score bonus checker 
+- Potential file reorganisation and catalouging the file in it's docstring
+
+
+
+
+
+

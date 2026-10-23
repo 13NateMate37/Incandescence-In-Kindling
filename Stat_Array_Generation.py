@@ -14,7 +14,7 @@ Contents:
 4)    Function for user to select a Stat Generation Method.
 """
 
-from dice import roll_4d6_drop_lowest
+from Dice import roll_4d6_drop_lowest
 
 
 # 1 SAG-4d6d1
