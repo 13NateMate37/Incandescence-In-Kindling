@@ -1,0 +1,11 @@
+Documentation of key prompt responses, for learning transparency
+
+
+Not quite. pending_change == chosen_budget_value only accepts a change 
+that spends the exact budget; it should also accept totals below the budget. 
+And subtracting new_score_cost from points_remaining doesn’t account for 
+the old score’s cost.
+
+After confirming the proposed total is within the budget, set current_cost 
+to pending_change, then recalculate points_remaining as the budget minus 
+current_cost.

@@ -232,7 +232,7 @@ def assign_Ability_Scores(stat_array: list, Ability_Scores: dict):
 def spend_Pointbuy_Points():
     # Setting a copy of the base dict 
     pointbuy_array = ABILITY_SCORES_BLANK_BASE.copy()
-    # Setting all the scores to 10
+    # Setting all the scores ABILITY_SCORES_BLANK_BAS to 10
     for Ability in pointbuy_array:
         pointbuy_array[Ability] = 10
     
@@ -251,17 +251,18 @@ def spend_Pointbuy_Points():
     while True:        
         # Displaying info to the user
         print(f"Remaining Points: {points_remaining}")
-        print(f"Ability Scores: ")
+        print("Ability Scores: ")
         for Ability in pointbuy_array:
             print(f"{Ability}: {pointbuy_array[Ability]}")
 
         # Capture user input for Ability Score choice
         try:
+            print("(After speding all your points,\n enter 'Done' to finish and save.)")
             select_AS = input("Choose an Ability Score:\n")
             # Handling the input
             select_AS = select_AS.title()
 
-            # Outermost if (G-if), identifing selecetd Ability 
+            # (G-if) Identifing if selecetd Ability or  
             if select_AS in pointbuy_array:
                 # Capture the new value for selected Ability, handled to an int
                 score_change_to = int(input("Enter a Score value:\n (Min 7-18 Max)\n"))
@@ -278,9 +279,9 @@ def spend_Pointbuy_Points():
                     # (2F-if) Confirming the change 
                     if confirm_change.lower() == "y":
                         # Checking the change is in budget
-
                         # Storing the selected Ability Score's value in a variable
                         old_score_cost = pointbuy_array[select_AS]
+                        
                         # Looking up what Value we get if we use old_score_cost as 
                         # Key for the POINTBUY_POINT_COSTS dictionairy and making 
                         # old_score_cost that looked up value
@@ -292,8 +293,39 @@ def spend_Pointbuy_Points():
                         pending_change = (current_cost - old_score_cost) + new_score_cost
 
                         # (3F-if) Validate the change
-                        if pending_change == chosen_budget_value:
-                            
+                        if pending_change <= chosen_budget_value:
+                            # Validated, process change
+                            current_cost = pending_change
+                            # Calculate remaining points
+                            points_remaining = chosen_budget_value - current_cost
+                            # Updating the dictionairy
+                            pointbuy_array[select_AS] = score_change_to
+
+                        # (3F-else) Validate the change
+                        else:
+                            print("That change is over your budget!")
+                            print("You must reallocate your points.")
+                            continue
+                    
+                    # (2F-else) Confirming the change 
+                    else:
+                        continue
+                
+                # (1F-elif) Validating new Score
+                else:
+                    continue
+           
+            # (G-elif), identifing selecetd Ability 
+            else:
+                print("Please select from the Ability Scores.")
+                continue
+        except ValueError:
+            print("Choose a Score to spend points in, or enter 'Done'")
+            continue
+        
+                                
+
+
 
 
                         
