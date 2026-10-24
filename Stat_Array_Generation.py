@@ -162,7 +162,7 @@ def choose_Campaign_Budget():
     prompt = (
         "Please select Fantasy Budget."
         "\n 1) Low (10pts)\n 2) Standard (15pts)"
-        "\n 3) High (24 pts)\n 4) Epic (30 pts)\n"
+        "\n 3) High (25 pts)\n 4) Epic (30 pts)\n"
     )
 
     # Loops if 1-4 isn't entered6
@@ -230,3 +230,86 @@ def assign_Ability_Scores(stat_array: list, Ability_Scores: dict):
 
 # ASA-1b
 def spend_Pointbuy_Points():
+    # Setting a copy of the base dict 
+    pointbuy_array = ABILITY_SCORES_BLANK_BASE.copy()
+    # Setting all the scores to 10
+    for Ability in pointbuy_array:
+        pointbuy_array[Ability] = 10
+    
+    # Getting point total Key
+    chosen_budget_key = choose_Campaign_Budget()
+    # Retriveing matching Value
+    chosen_budget_value = CAMPAIGN_BUDGETS[chosen_budget_key]
+    
+    # establishing cost count
+    current_cost = sum(
+        POINTBUY_POINT_COSTS[score] for score in pointbuy_array.values()
+    )
+    points_remaining = chosen_budget_value - current_cost
+
+    # Initialising input loop
+    while True:        
+        # Displaying info to the user
+        print(f"Remaining Points: {points_remaining}")
+        print(f"Ability Scores: ")
+        for Ability in pointbuy_array:
+            print(f"{Ability}: {pointbuy_array[Ability]}")
+
+        # Capture user input for Ability Score choice
+        try:
+            select_AS = input("Choose an Ability Score:\n")
+            # Handling the input
+            select_AS = select_AS.title()
+
+            # Outermost if (G-if), identifing selecetd Ability 
+            if select_AS in pointbuy_array:
+                # Capture the new value for selected Ability, handled to an int
+                score_change_to = int(input("Enter a Score value:\n (Min 7-18 Max)\n"))
+
+                # (1F-if) Validating new Score
+                if score_change_to in POINTBUY_POINT_COSTS:
+                    # print messages 
+                    print(f"Current Score: {pointbuy_array[select_AS]}")
+                    print(f"New Score: {select_AS} {score_change_to}")
+                    print(f"Costs {POINTBUY_POINT_COSTS[score_change_to]} points,")
+                    # Capturing confirmation
+                    confirm_change = input("Confirm new Score Y/N ?\n")
+
+                    # (2F-if) Confirming the change 
+                    if confirm_change.lower() == "y":
+                        # Checking the change is in budget
+
+                        # Storing the selected Ability Score's value in a variable
+                        old_score_cost = pointbuy_array[select_AS]
+                        # Looking up what Value we get if we use old_score_cost as 
+                        # Key for the POINTBUY_POINT_COSTS dictionairy and making 
+                        # old_score_cost that looked up value
+                        old_score_cost = POINTBUY_POINT_COSTS[old_score_cost]
+
+                        # Looking up the new score cost
+                        new_score_cost = POINTBUY_POINT_COSTS[score_change_to]
+                        # Process the calculation
+                        pending_change = (current_cost - old_score_cost) + new_score_cost
+
+                        # (3F-if) Validate the change
+                        if pending_change == chosen_budget_value:
+                            
+
+
+                        
+
+
+
+
+
+
+
+            
+
+            
+
+
+ 
+
+    
+
