@@ -165,7 +165,7 @@ def choose_Campaign_Budget():
         "\n 3) High (25 pts)\n 4) Epic (30 pts)\n"
     )
 
-    # Loops if 1-4 isn't entered6
+    # Loops if 1-4 isn't entered
     # Loops if non numerical
     while True:
         try:
@@ -257,14 +257,28 @@ def spend_Pointbuy_Points():
 
         # Capture user input for Ability Score choice
         try:
-            print("(After speding all your points,\n enter 'Done' to finish and save.)")
+            print("After speding all your points, enter 'Done' to finish and save.")
+            print("(Must spend all your points to finish and save)")
             select_AS = input("Choose an Ability Score:\n")
             # Handling the input
             select_AS = select_AS.title()
 
-            # (G-if) Identifing if selecetd Ability or  
-            if select_AS in pointbuy_array:
-                # Capture the new value for selected Ability, handled to an int
+            # (G-if) Identifing if entered an Ability/Done 
+            if select_AS == "Done" and points_remaining == 0:
+                # Save conidtion met, return the generated array. 
+                return pointbuy_array
+
+            # (G-elif1)
+            elif select_AS == "Done" and points_remaining != 0:
+                # Save condition not met, return to top of while loop
+                print("You must spend all your points to finish and save!")
+                
+                continue
+
+            # (G-elif2) Identifing if entered an Ability Score/Done
+            # If an Ability Score was entered
+            elif select_AS in pointbuy_array:
+                # Capture the new value for selected Ability Score, handled to an int
                 score_change_to = int(input("Enter a Score value:\n (Min 7-18 Max)\n"))
 
                 # (1F-if) Validating new Score
