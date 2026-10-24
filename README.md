@@ -32,8 +32,17 @@ This is semi-guided through the use of AI as a learning tool along side document
 # Working towards
 
 - Need a funciton for spending Point Buy  points based upon the campaign budget.
+  - Start with a copy of the blank ability-score dictionary and set all six scores to 8.
+  - Call `choose_Campaign_Budget()` and use the returned campaign name to look up its numeric budget in `CAMPAIGN_BUDGETS`.
+  - Calculate the total cost of all six current scores using `POINTBUY_POINT_COSTS`. Since the costs are cumulative relative to 10, six starting scores of 8 have a combined cost of -12.
+  - Show the player their current scores, selected budget, combined cost, and remaining room under the budget.
+  - Ask which ability score to change and what new score to assign. Validate that the ability is valid and the score is an integer listed in `POINTBUY_POINT_COSTS`.
+  - Before applying a change, calculate the proposed combined cost. Accept the change only if it does not exceed the selected budget; otherwise, explain why and prompt again.
+  - Repeat until the player chooses to finish, then return the completed ability-score dictionary. The player does not need to spend the entire budget.
+  - Decide whether spending points only allows increasing scores or whether lowering scores can earn points; make that behavior explicit.
+  - Resolve the High Fantasy budget mismatch: `CAMPAIGN_BUDGETS` currently specifies 25 points, while the selection prompt says 24.
 - Ability Score bonus checker 
-- Potential file reorganisation and catalouging the file in it's docstring
+- array_Roller_Pointbuy was decided to be redundant, refactoring logic flow 
 
 
 

@@ -18,7 +18,6 @@ Contents:
 3) Stat Array Generation:
             SAG-1a: arry_Roller_4d6d1 - Returns an array using the 4d6d1 rolling method
             SAG-1b: arry_Roller_Standard - Returns an array of the Standard method 
-            SAG-1c: arry_Roller_Pointbuy - Returns an array of 8's for later point spending
 4) User Choice Selection:
             UCS-1a: choose_Array_Method - Allows user to choose SAG method
             UCS-1b: choose_Campaign_Budget - Allows user to choose a Pointbuy total 
@@ -100,13 +99,6 @@ def array_Roller_Standard():
     # Declaring array values
     standard_array = [15, 14, 13, 12, 10, 8]
     return standard_array
-
-
-# SAG-1c
-def array_Roller_Pointbuy():
-    # Declaring array values
-    point_buy_array = [8, 8, 8, 8, 8, 8]
-    return point_buy_array
 
 
 
