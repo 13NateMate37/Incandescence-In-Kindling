@@ -32,18 +32,17 @@ This is semi-guided through the use of AI as a learning tool along side document
 # Working towards
 
 - Need a funciton for spending Point Buy  points based upon the campaign budget.
-  - Start with a copy of the blank ability-score dictionary and set all six scores to 8.
-  - Call `choose_Campaign_Budget()` and use the returned campaign name to look up its numeric budget in `CAMPAIGN_BUDGETS`.
-  - Calculate the total cost of all six current scores using `POINTBUY_POINT_COSTS`. Since the costs are cumulative relative to 10, six starting scores of 8 have a combined cost of -12.
-  - Show the player their current scores, selected budget, combined cost, and remaining room under the budget.
-  - Ask which ability score to change and what new score to assign. Validate that the ability is valid and the score is an integer listed in `POINTBUY_POINT_COSTS`.
-  - Before applying a change, calculate the proposed combined cost. Accept the change only if it does not exceed the selected budget; otherwise, explain why and prompt again.
-  - Repeat until the player chooses to finish, then return the completed ability-score dictionary. The player does not need to spend the entire budget.
-  - Decide whether spending points only allows increasing scores or whether lowering scores can earn points; make that behavior explicit.
-  - Resolve the High Fantasy budget mismatch: `CAMPAIGN_BUDGETS` currently specifies 25 points, while the selection prompt says 24.
+  - Initialize a copy of the ability-score dictionary with all six scores at 10.
+  - Call `choose_Campaign_Budget()` and use its returned campaign name to look up the custom point total in `CAMPAIGN_BUDGETS`.
+  - Calculate the total cost from all six scores using `POINTBUY_POINT_COSTS`, then calculate the points remaining.
+  - Display the current scores and points remaining each turn. Allow the player to enter an ability name to change its score.
+  - Validate score input: require a whole number from 7 to 18, and explain invalid or non-numeric input before prompting again.
+  - Confirm each proposed change. If confirmed, calculate the proposed total by replacing the old score's cost with the new score's cost.
+  - Accept the change only if the proposed total does not exceed the selected budget; update the ability score, total cost, and remaining points only after it passes. Otherwise, explain that the change exceeds the budget.
+  - Explain when a player declines a change, and keep the current scores and totals unchanged.
+  - Require the player to spend the entire budget before entering `Done` to finish; if points remain, tell them how many are left. Return the completed ability-score dictionary when the budget is fully spent.
 - Ability Score bonus checker 
 - array_Roller_Pointbuy was decided to be redundant, refactoring logic flow 
-
 
 
 
