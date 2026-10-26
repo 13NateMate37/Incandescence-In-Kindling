@@ -85,11 +85,13 @@ def array_Roller_4d6d1():
     """
     # Store result into variable
     results = []
+
     # Roll 6 times to make an array of 6
     for _ in range(6):
         rolls = roll_4d6_Drop_Lowest()
         # Add to results
         results.append(rolls)
+
     # Return the array sorted
     return sorted(results, reverse=True)
 
@@ -133,9 +135,10 @@ def choose_Array_Method():
             print("Please enter a number from 1 to 3.")
             continue
 
-        # Loops is a number not 1-3 is chosen
+        # Returning value matching correct input
         if selected_method in choices:
             return choices[selected_method]
+
 
         print("Please enter a number from 1 to 3.")
 
@@ -174,7 +177,7 @@ def choose_Campaign_Budget():
             print("Please enter a number from 1 to 4.")
             continue
 
-        # Loops is a number not 1-4 is chosen
+        # Returning value matching correct input
         if selected_budget in choices:
             return choices[selected_budget]
 
@@ -190,11 +193,11 @@ def assign_Ability_Scores(stat_array: list, Ability_Scores: dict):
     dictionary as input, allowing the user to manual assign values from their
     Stat Arrays to the desired Ability Score. Resulting in a new dictionary.
     """
-
     # Making a copy of the Ability_Scores dictionary
     assigned_scores = Ability_Scores.copy()
     # Same for the remaining scores
     remaining_scores = stat_array.copy()
+
 
     # For each Ability Sore in the dictionary, top down
     for Ability in assigned_scores:
@@ -205,20 +208,25 @@ def assign_Ability_Scores(stat_array: list, Ability_Scores: dict):
             # Capture user input for the current Ability Score
             choose_score = input(f"Choose a value for {Ability}:\n")
 
+
             # Establishing try/except block
             try:
                 # Convert the captured str to an int 
                 chosen_score = int(choose_score)
+
+
             # If can't due to not being a recognised whole number
             except ValueError:
                 print("Choose a value from your Stat Array")
                 continue # Return to the loop start
+
 
             # checking if the user made up a value
             if chosen_score not in remaining_scores:
                 # print a reminder and return to the loop start
                 print("Choose a value from your Stat Array")
                 continue
+
 
             # Assigning the Value to the Key
             assigned_scores[Ability] = chosen_score
@@ -230,6 +238,11 @@ def assign_Ability_Scores(stat_array: list, Ability_Scores: dict):
 
 # ASA-1b
 def spend_Pointbuy_Points():
+    """
+    This function makes a copy of ABILITY_SCORES_BLANK_BASE, sets the 
+    values to 10 and then allows for augmenting them based upon the point
+    budget retreived from choose_Caampaign_Budget.
+    """
     # Setting a copy of the base dict 
     pointbuy_array = ABILITY_SCORES_BLANK_BASE.copy()
     # Setting all the scores ABILITY_SCORES_BLANK_BAS to 10
@@ -315,7 +328,6 @@ def spend_Pointbuy_Points():
                             # Process the calculation
                             pending_change = (current_cost - old_score_cost) + new_score_cost
 
-
                             # (3F-if) Validate the change
                             if pending_change <= chosen_budget_value:
                                 # Validated, process change
@@ -324,7 +336,6 @@ def spend_Pointbuy_Points():
                                 points_remaining = chosen_budget_value - current_cost
                                 # Updating the dictionairy
                                 pointbuy_array[select_AS] = score_change_to
-
 
                             # (3F-else) Validate the change
                             else:
@@ -340,19 +351,16 @@ def spend_Pointbuy_Points():
                         # (2F-else) Confirming the change 
                         else:
                             print("Please enter Y/N")
-
                 
                 # (1F-elif) Validating new Score
                 else:
                     print("A starting Ability Score must be within range of 7 to 18")
                     continue
-
         
             # (G-elif), identifing selecetd Ability 
             else:
                 print("Please select from the Ability Scores.")
                 continue
-
 
         except ValueError:
             print("Choose a Score to spend points in, or enter 'Done'")
