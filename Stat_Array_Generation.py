@@ -365,26 +365,3 @@ def spend_Pointbuy_Points():
         except ValueError:
             print("Choose a Score to spend points in, or enter 'Done'")
             continue
-        
-                                
-
-
-
-
-                        
-
-
-
-
-
-
-
-            
-
-            
-
-
- 
-
-    
-
