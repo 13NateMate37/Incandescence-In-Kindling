@@ -33,6 +33,8 @@ This is semi-guided through the use of AI as a learning tool along side document
 
 # Working towards
 
+The current construction of the game logic will need to shift. I was focussing on trying to actually write the logic and make it work so i was using Terminal as my method of output inspection and hadn't thought how that would interact with using streamlit to present the internal working ot the user.
+
 An inital Streamlit visualisation for the character creation logic I currently have built. Will 
 likely be working on the character classes next. Will need to spend some time organising the next 
 steps.
