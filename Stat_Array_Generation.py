@@ -103,7 +103,11 @@ def array_Roller_Standard():
     return standard_array
 
 
-
+# SAG-1c
+def array_Roller_Pointbuy():
+    # Declaring array values
+    standard_array = [10, 10, 10, 10, 10, 10]
+    return standard_array
 
 # UCS-1a 
 def choose_Array_Method():
