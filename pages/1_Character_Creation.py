@@ -9,6 +9,7 @@ import streamlit as st
 from Stat_Array_Generation import array_Roller_Standard
 from Stat_Array_Generation import array_Roller_4d6d1
 from Stat_Array_Generation import array_Roller_Pointbuy
+from Stat_Array_Generation import ability_Score_Modifer_Calculator
 from Stat_Array_Generation import ABILITY_SCORES_BLANK_BASE
 
 
@@ -82,7 +83,17 @@ with ArrayButton_PtB:
 
 # 2e If there's a Stat Array in session state
 if "scores" in st.session_state:
-    st.write(st.session_state.scores)
+    # Stat_Array_Value split into columns for metric cards 
+    Stat_Array_Values = st.columns(6)
+    for index, score in enumerate(st.session_state.scores):
+        with Stat_Array_Values[index]:
+             modifierValue = ability_Score_Modifer_Calculator(score)
+             st.metric(
+                 label= f"Value {index + 1}",
+                 value= score,
+                 delta= modifierValue
+                 )
+
 
 
 # Settin an Ability Score that hasn't been assigned in s
