@@ -7,35 +7,80 @@ Streamlit character creation page
 import streamlit as st
 
 from Stat_Array_Generation import array_Roller_Standard
+from Stat_Array_Generation import array_Roller_4d6d1
+from Stat_Array_Generation import array_Roller_Pointbuy
 from Stat_Array_Generation import ABILITY_SCORES_BLANK_BASE
 
 
 
 
 
+# Pre load check
+
 # Checking whether a game has been initialised 
-if not st.session_state.get("game_active", False):
-    st.warning("Start a game before making character")
-    st.stop()
+# if not st.session_state.get("game_active", False):
+#     st.warning("Start a game before making character")
+#     st.stop()
 
 
-# page title 
+
+
+
+# Page section 1
+
+# 1a - Displays page title
+# 1b - Displays character naming subheader
+# 1c - Displays character naming input capture promt
+
+# 1a 
 st.title("Character Creation")
 
-# Storing the character name
-character_name = st.text_input("Enter your character's name.")
+# 1b
+st.subheader("Character Name") 
 
-# Subheading 
+# 1c
+character_name = st.text_input("Enter the chosen name here:")
+
+
+
+# Page section 2
+
+# 2a - Displays the Ability Score Assignment subheader
+# 2b - Displays user prompt 
+# 2c - Variable assignment for st.column page structure
+# 2d - Structuring the idividual columns
+# 2e - If there's a Stat Array in session state
+
+# 2a
 st.subheader("Ability Score Assignment")
 
+# 2b
+st.write("Choose a method to generate your Stat Array")
 
-# Ability Score generation 
-# Loads a standard array into the session state
-if st.button("Standard Array"):
-    st.session_state.scores = array_Roller_Standard()
+# 2c
+ArrayButton_STD, ArrayButton_4d6, ArrayButton_PtB, = st.columns(
+    3,
+    width=400,
+    gap="medium"
+    )
 
+# 2d
+with ArrayButton_STD:
+    # Loads a standard array into the session state
+    if st.button("Standard"):
+        st.session_state.scores = array_Roller_Standard()
 
-# If there's a Stat Array in session state
+with ArrayButton_4d6: 
+    # Loads a 4d6d1 array into the session state
+    if st.button("4d6d1"):
+        st.session_state.scores = array_Roller_4d6d1()
+
+with ArrayButton_PtB: 
+    # Loads a base Pointbuy array into the session state
+    if st.button("Point Buy"):
+        st.session_state.scores = array_Roller_Pointbuy()
+
+# 2e If there's a Stat Array in session state
 if "scores" in st.session_state:
     st.write(st.session_state.scores)
 
