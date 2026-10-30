@@ -37,7 +37,7 @@ from Dice import roll_4d6_Drop_Lowest
 
 
 
-# Gbl-1a
+# Gbl-1
 # Ability Score, Blank Dictionary
 ABILITY_SCORES_BLANK_BASE = {
     "Strength": None,
@@ -369,3 +369,12 @@ def spend_Pointbuy_Points():
         except ValueError:
             print("Choose a Score to spend points in, or enter 'Done'")
             continue
+
+# ASA-1c 
+def ability_Score_Modifer_Calculator(Ability_Score_Value: int):
+    """
+    This function calculates an Ability Scores Modifer value.
+    Taking the Ability Score values as input
+    """
+    modifer_value = ((Ability_Score_Value - 10) // 2)
+    return modifer_value
