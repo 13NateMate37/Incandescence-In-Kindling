@@ -91,7 +91,8 @@ if "scores" in st.session_state:
              st.metric(
                  label= f"Value {index + 1}",
                  value= score,
-                 delta= modifierValue
+                 delta= f"{modifierValue:+}",
+                 delta_arrow= "off"
                  )
 
 
@@ -110,17 +111,28 @@ ability_score_button_list = [
     "Wisdom",
     "Charisma"
 ]
+# Structuring the buttons
+Ability_Score_Buttons = st.columns(6)
 # Will load the Ability Score buttons into session state
-for ability in ability_score_button_list:
-   if st.button(ability):
-      st.session_state.selected_ability = ability
+for index, ability in enumerate(ability_score_button_list):
+   with Ability_Score_Buttons[index]:
+      if st.button(ability):
+          st.session_state.selected_ability = ability
+        #   st.write("Selected:", ability)
+        #   st.write("Stored value:", st.session_state.selected_ability)
 
+# Debug inspection
+# st.write(dict(st.session_state))
 
 # Initialising a new character sheets scores
 if "new_character_sheet" not in st.session_state:
     new_character_sheet = ABILITY_SCORES_BLANK_BASE.copy()
     st.session_state.new_character_sheet = new_character_sheet
 
+
+# Bug checking
+# st.write("Selected Ability:", st.session_state.selected_ability)
+# st.write("Scores esxist:", "scores" in st.session_state)
 
 # 
 if st.session_state.selected_ability is not None:
