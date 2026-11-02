@@ -9,6 +9,8 @@ Working in Python, I will engineer game logic for a Table Top Role Playing Game.
 
 I will be using Streamlit to create a 'front-end' for the experience and will be using Ollama to run a local model AI as an interactive 'Game Master'.
 
+Streamlit Magic is disabled in `.streamlit/config.toml`, so standalone expressions such as docstrings are not automatically displayed on the app page.
+
 Development is expected to slightly wonky to start with. streamlining as I start picking habbits and noticing patterns. 
 
 This is semi-guided through the use of AI as a learning tool along side documentation and my previous Python basics training. 
@@ -40,7 +42,6 @@ likely be working on the character classes next. Will need to spend some time or
 steps.
 
 A changelog/progression in the readme would be a nice touch to have.
-
 
 
 
