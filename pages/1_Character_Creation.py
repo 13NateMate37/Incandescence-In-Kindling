@@ -204,6 +204,18 @@ if (st.session_state.selected_ability is not None and "scores" in st.session_sta
 
 
 
-
-
+if "scores" in st.session_state:
+    finalised_scores = st.columns(6)
+    for index, (ability_key, ability_value) in enumerate(st.session_state.new_character_sheet.items()):
+        with finalised_scores[index ]:
+            if ability_value is not None:
+                modifierValue = ability_Score_Modifer_Calculator(ability_value)
+                modifierDisplay = f"{modifierValue:+}"
+            else: modifierDisplay = "-"
+            st.metric(
+                label= ability_key,
+                value= ability_value if ability_value is not None else "-",
+                delta= modifierDisplay,
+                delta_arrow= "off"
+                )
 
