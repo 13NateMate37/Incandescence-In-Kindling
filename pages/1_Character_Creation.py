@@ -190,28 +190,37 @@ if "scores" in st.session_state and st.session_state.selected_ability is not Non
 
 # Dropdown menu to select a Score value from the array
 if (st.session_state.selected_ability is not None and "scores" in st.session_state):
-    selected_score = st.selectbox(
-        "Choose an Ability Score",
-        available_scores
-    )
+    selectionColumn, buttonColumn = st.columns([2,1], vertical_alignment="bottom")
+    with selectionColumn: 
+        selected_score = st.selectbox(
+            "Choose an Ability Score",
+            available_scores
+        )
     # Visual confirmation to user
     st.write(f"Selected Value: {selected_score}")
 
     # Buttom to attach the Score to the Ability
-    if st.button("Assign Score"):
-        st.session_state.new_character_sheet[st.session_state.selected_ability] = selected_score
+    with buttonColumn:
+        if st.button("Assign Score"):
+            st.session_state.new_character_sheet[st.session_state.selected_ability] = selected_score
 # st.write(st.session_state.new_character_sheet)
 
 
-
+# Load condition
 if "scores" in st.session_state:
+    # Variable name to assign columns to 
     finalised_scores = st.columns(6)
+    # for each index and its key and value
     for index, (ability_key, ability_value) in enumerate(st.session_state.new_character_sheet.items()):
-        with finalised_scores[index ]:
+        # Use the index and assign it to a column in order
+        with finalised_scores[index]:
+            # If there is value for the key 
             if ability_value is not None:
+                # Calculate is modifer value 
                 modifierValue = ability_Score_Modifer_Calculator(ability_value)
                 modifierDisplay = f"{modifierValue:+}"
             else: modifierDisplay = "-"
+            # Display the columns using metric cards
             st.metric(
                 label= ability_key,
                 value= ability_value if ability_value is not None else "-",
